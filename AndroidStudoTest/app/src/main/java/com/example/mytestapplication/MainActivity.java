@@ -6,15 +6,18 @@ import android.content.Context;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialPort;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
+import com.hoho.android.usbserial.util.SerialInputOutputManager;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.Executors;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SerialInputOutputManager.Listener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +48,20 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            port.write(new byte[]{1, 2, 3, 4}, 20000);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        SerialInputOutputManager usbIoManager = new SerialInputOutputManager(port, this);
+        Executors.newSingleThreadExecutor().submit(usbIoManager);
+
+    }
+
+
+    @Override
+    public void onNewData(byte[] data) {
+        Toast toast = Toast.makeText(this, data.toString(), Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    @Override
+    public void onRunError(Exception e) {
 
     }
 }
