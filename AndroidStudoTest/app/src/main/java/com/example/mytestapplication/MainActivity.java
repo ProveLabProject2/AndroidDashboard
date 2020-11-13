@@ -2,6 +2,7 @@ package com.example.mytestapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
@@ -15,6 +16,7 @@ import com.hoho.android.usbserial.driver.UsbSerialProber;
 import com.hoho.android.usbserial.util.SerialInputOutputManager;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
             return;
         }
 
-
+        Log.d(TAG, driver.getPorts().toString());
         UsbSerialPort port = driver.getPorts().get(0); // Most devices have just one port (port 0)
         try {
             port.open(connection);
@@ -57,13 +59,19 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
         SerialInputOutputManager usbIoManager = new SerialInputOutputManager(port, this);
         Executors.newSingleThreadExecutor().submit(usbIoManager);
 
+
     }
 
 
     @Override
-    public void onNewData(byte[] data) {
-        Toast toast = Toast.makeText(this, data.toString(), Toast.LENGTH_LONG);
-        toast.show();
+    public void onNewData(final byte[] data) {
+        Log.d(TAG, new String(data, StandardCharsets.US_ASCII));
+        final Activity mainActivity = this;
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(mainActivity, new String(data, StandardCharsets.US_ASCII), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
