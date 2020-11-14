@@ -7,7 +7,10 @@ import android.content.Context;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
+import android.util.JsonReader;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
@@ -58,18 +61,32 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
         }
         SerialInputOutputManager usbIoManager = new SerialInputOutputManager(port, this);
         Executors.newSingleThreadExecutor().submit(usbIoManager);
-
-
     }
 
 
     @Override
     public void onNewData(final byte[] data) {
         Log.d(TAG, new String(data, StandardCharsets.US_ASCII));
-        final Activity mainActivity = this;
+        //final TextView textView = this.findViewById(R.id.textID****);
+
+
+
         this.runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(mainActivity, new String(data, StandardCharsets.US_ASCII), Toast.LENGTH_SHORT).show();
+                // This is the data received from the USB cable from arduino converted to a string
+                String receivedData = new String(data, StandardCharsets.US_ASCII);
+                //"{"BatteryTemp":50, "BatteryCharge": 100, }" <- this is an example of how the data
+                //will look
+
+                //Convert the data to json object
+
+                //Pseudo Code for processing data:
+                    // Iterate through all json keys
+                    // For each iteration, check the key name.
+                    // Have a large if statement for each key name, ex if keyname is "BatteryTemp"
+                    // In the if statements for each key name, change the corresponding text view
+                    // Example of changing text view:
+                        // ((TextView) findViewById(R.id.batteryTemperatureTextView)).setText(jsonData[keyName])
             }
         });
     }
