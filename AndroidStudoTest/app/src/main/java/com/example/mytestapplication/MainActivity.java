@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
+import android.icu.lang.UScript;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.Log;
@@ -33,8 +34,10 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity implements SerialInputOutputManager.Listener {
-
+    public boolean connected = false;
     private static final String TAG = "MainActivity";
+    private SerialInputOutputManager usbIoManager;
+    private UsbSerialPort port;
 
     private static final String ACTION_USB_PERMISSION =
             "com.android.example.USB_PERMISSION";
@@ -143,5 +146,32 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
 
     @Override
     public void onRunError(Exception e) {
+        final Activity mainActivity = this;
+        Log.d(TAG, "thiswaserror");
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(mainActivity,"Disconnected",Toast.LENGTH_LONG).show();
+            }
+        });
+        disconnect();
+    }
+
+    //creates disconnect method to end connection
+    private void disconnect(){
+        Log.d(TAG, "called");
+        final Activity mainActivity = this;
+        connected = false;
+        Log.d(TAG, String.valueOf(usbIoManager));
+        if(usbIoManager != null) {
+            usbIoManager.stop();
+            Log.d(TAG,"IoManagerStoppped");
+        }
+        Log.d(TAG, String.valueOf(port));
+        usbIoManager = null;
+        try {
+            port.close();
+            Log.d(TAG, "portclosed");
+        } catch (IOException ignored) {}
+        port = null;
     }
 }
