@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
     private static final String TAG = "MainActivity";
     private SerialInputOutputManager usbIoManager;
     private UsbSerialPort port;
+    public String jsonStr = "";
+    public String dataFinal = "";
 
     private static final String ACTION_USB_PERMISSION =
             "com.android.example.USB_PERMISSION";
@@ -119,7 +121,12 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
 
     @Override
     public void onNewData(final byte[] data) {
-        Log.d(TAG, new String(data, StandardCharsets.US_ASCII));
+        String tempData = new String(data, StandardCharsets.US_ASCII);
+        jsonStr += tempData;
+        if (jsonStr.indexOf('}') != -1) {
+            dataFinal = jsonStr;
+            jsonStr = "";
+        Log.d(TAG, dataFinal);
         //final TextView textView = this.findViewById(R.id.textID****);
 
 
@@ -142,12 +149,13 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
                         // ((TextView) findViewById(R.id.batteryTemperatureTextView)).setText(jsonData[keyName])
             }
         });
+        }
     }
 
     @Override
     public void onRunError(Exception e) {
         final Activity mainActivity = this;
-        Log.d(TAG, "thiswaserror");
+        Log.d(TAG, "error_found");
         this.runOnUiThread(new Runnable() {
             public void run() {
                 Toast.makeText(mainActivity,"Disconnected",Toast.LENGTH_LONG).show();
@@ -158,19 +166,19 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
 
     //creates disconnect method to end connection
     private void disconnect(){
-        Log.d(TAG, "called");
+        Log.d(TAG, "disconnect_called");
         final Activity mainActivity = this;
         connected = false;
         Log.d(TAG, String.valueOf(usbIoManager));
         if(usbIoManager != null) {
             usbIoManager.stop();
-            Log.d(TAG,"IoManagerStoppped");
+            Log.d(TAG,"IoManager_Stopped");
         }
         Log.d(TAG, String.valueOf(port));
         usbIoManager = null;
         try {
             port.close();
-            Log.d(TAG, "portclosed");
+            Log.d(TAG, "port_closed");
         } catch (IOException ignored) {}
         port = null;
     }
