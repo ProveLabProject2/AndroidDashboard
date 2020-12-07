@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
 
         // Open a connection to the first available driver.
         driver = availableDrivers.get(0);
-
+        Log.d(TAG, "test");
         manager.requestPermission(driver.getDevice(), permissionIntent);
     }
 
