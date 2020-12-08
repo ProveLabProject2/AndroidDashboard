@@ -21,6 +21,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.hoho.android.usbserial.driver.CdcAcmSerialDriver;
 import com.hoho.android.usbserial.driver.ProbeTable;
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
@@ -28,9 +31,16 @@ import com.hoho.android.usbserial.driver.UsbSerialPort;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
 import com.hoho.android.usbserial.util.SerialInputOutputManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity implements SerialInputOutputManager.Listener {
@@ -40,9 +50,9 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
     private UsbSerialPort port;
     public String jsonStr = "";
     public String dataFinal = "";
+    public JsonObject infoGson;
 
-    private static final String ACTION_USB_PERMISSION =
-            "com.android.example.USB_PERMISSION";
+    private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
 
     UsbSerialDriver driver;
 
@@ -126,8 +136,11 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
         if (jsonStr.indexOf('}') != -1) {
             dataFinal = jsonStr;
             jsonStr = "";
-        Log.d(TAG, dataFinal);
-        //final TextView textView = this.findViewById(R.id.textID****);
+            try {
+                jsonParse();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
 
 
@@ -163,6 +176,25 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
         });
         disconnect();
     }
+
+    //method to parse through JSON input
+    public void jsonParse() throws JSONException {
+        JSONObject test = new JSONObject(dataFinal);
+        for(int i = 0;  i < test.names().length(); i++){
+            String key = test.names().getString(i);
+            Object value = test.get(test.names().getString(i));
+            if (key.equals("Battery")){
+                Log.d(TAG, "Battery Value: " + value);
+                //assign value to a TextView on the UI thread
+            }
+            if (key.equals("Temperature")){
+                Log.d(TAG,"Temperature Value: " + value);
+            }
+            //Continue adding until all required values are assigned to a TextView
+        }
+    }
+
+
 
     //creates disconnect method to end connection
     private void disconnect(){
