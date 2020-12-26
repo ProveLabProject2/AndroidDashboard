@@ -1,89 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#1C2730"
-    tools:context=".MainActivity">
-
-
-    <Button
-        android:id="@+id/commsBoard"
-        android:layout_width="350dp"
-        android:layout_height="285dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="#C0D3C1"
-        android:text="Comms Board"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.081"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.253" />
-
-    <Button
-        android:id="@+id/drivingBoard"
-        android:layout_width="350dp"
-        android:layout_height="285dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="#C0D3C1"
-        android:text="Driving Board"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.912"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.253" />
-
-    <Button
-        android:id="@+id/bms"
-        android:layout_width="350dp"
-        android:layout_height="285dp"
-        android:layout_marginEnd="56dp"
-        android:backgroundTint="#C0D3C1"
-        android:text="Battery Board"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.687" />
-
-    <Button
-        android:id="@+id/alertsBoard"
-        android:layout_width="350dp"
-        android:layout_height="285dp"
-        android:layout_marginEnd="476dp"
-        android:backgroundTint="#C0D3C1"
-        android:text="Alerts Board"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.687" />
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#9C27B0"
+    android:backgroundTint="#172230">
 
     <TextView
-        android:id="@+id/homeTextView"
-        android:layout_width="110dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:autoText="false"
-        android:background="#00FFFFFF"
-        android:drawableTint="#FEFEFE"
+        android:id="@+id/screenTitleHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Home"
-        android:textAllCaps="true"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.088" />
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="75"
+        android:textStyle="normal"
+        android:typeface="sans"
+        android:verticalScrollbarPosition="defaultPosition"
+        android:layout_marginTop="50dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp">
+
+        <LinearLayout
+            android:id="@+id/alertsBoard"
+            android:layout_width="425dp"
+            android:layout_height="400dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:background="#253e5a">
+
+            <TextView
+                android:id="@+id/boardTitleAlerts"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#1f2d42"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textStyle="normal"
+                android:typeface="sans"
+                android:text="Alerts Board"
+                android:textSize="30dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/commsBoard"
+            android:layout_width="425dp"
+            android:layout_height="400dp"
+            android:orientation="vertical"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:background="#253e5a">
+
+            <TextView
+                android:id="@+id/boardTitleComms"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#1f2d42"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textStyle="normal"
+                android:typeface="sans"
+                android:text="Comms Board"
+                android:textSize="30dp"/>
+
+        </LinearLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp">
+
+
+        <LinearLayout
+            android:id="@+id/drivingBoard"
+            android:layout_width="425dp"
+            android:layout_height="400dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:background="#253e5a">
+
+            <TextView
+                android:id="@+id/boardTitleDriving"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#1f2d42"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textStyle="normal"
+                android:typeface="sans"
+                android:text="Driving Board"
+                android:textSize="30dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/batteryBoard"
+            android:layout_width="425dp"
+            android:layout_height="400dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:background="#253e5a">
+
+            <TextView
+                android:id="@+id/boardTitleBattery"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#1f2d42"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textStyle="normal"
+                android:typeface="sans"
+                android:text="Battery Board"
+                android:textSize="30dp"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp">
+
+
+                <ProgressBar
+                    android:layout_width="186dp"
+                    android:layout_height="221dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="50dp">
+
+                </ProgressBar>
+
+                <ProgressBar
+                    style="@android:style/Widget.ProgressBar.Large.Inverse"
+                    android:layout_width="186dp"
+                    android:layout_height="221dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="30dp
+">
+
+                </ProgressBar>
+
+            </TableRow>
+
+
+        </LinearLayout>
+    </TableRow>
+
+
+</TableLayout>
