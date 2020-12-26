@@ -12,7 +12,7 @@
         android:text="Home"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="75"
+        android:textSize="75dp"
         android:textStyle="normal"
         android:typeface="sans"
         android:verticalScrollbarPosition="defaultPosition"
@@ -139,23 +139,7 @@
                 android:paddingRight="0dp">
 
 
-                <ProgressBar
-                    android:layout_width="186dp"
-                    android:layout_height="221dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="50dp">
 
-                </ProgressBar>
-
-                <ProgressBar
-                    style="@android:style/Widget.ProgressBar.Large.Inverse"
-                    android:layout_width="186dp"
-                    android:layout_height="221dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginRight="30dp
-">
-
-                </ProgressBar>
 
             </TableRow>
 
