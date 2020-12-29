@@ -1,6 +1,8 @@
 package com.example.mytestapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.app.Activity;
@@ -15,6 +17,7 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.icu.lang.UScript;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
@@ -34,7 +37,9 @@ import com.hoho.android.usbserial.util.SerialInputOutputManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
@@ -50,10 +55,11 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
     private static final String TAG = "MainActivity";
     private SerialInputOutputManager usbIoManager;
     private UsbSerialPort port;
+    private boolean writeToFile = false;
     public String jsonStr = "";
     public String dataFinal = "";
     public JsonObject infoGson;
-    public OutputStreamWriter out;
+    public OutputStreamWriter out = null;
 
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
 
@@ -83,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
                             UsbSerialPort port = driver.getPorts().get(0); // Most devices have just one port (port 0)
                             try {
                                 port.open(connection);
+                                connected = true;
                             } catch (IOException e) {
                                 Log.d(TAG, "onCreate0: ");
                                 e.printStackTrace();
@@ -117,11 +124,17 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
         registerReceiver(usbReceiver, filter);
         ProbeTable customTable = new ProbeTable();
         customTable.addProduct(10755, 67, CdcAcmSerialDriver.class);
-        UsbSerialProber prober = new UsbSerialProber(customTable);
+
+        UsbSerialProber prober = new UsbSerialProber(UsbSerialProber.getDefaultProbeTable());
 
         List<UsbSerialDriver> availableDrivers = prober.findAllDrivers(manager);
         if (availableDrivers.isEmpty()) {
-            return;
+            prober = new UsbSerialProber(customTable);
+            availableDrivers = prober.findAllDrivers(manager);
+
+            if (availableDrivers.isEmpty()) {
+                return;
+            }
         }
 
 
@@ -129,27 +142,53 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
         driver = availableDrivers.get(0);
         Log.d(TAG, "test");
         manager.requestPermission(driver.getDevice(), permissionIntent);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                0);
+
     }
 
+    @Override
+    public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 0) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                writeToFile = true;
+            } else {
+                // User refused to grant permission.
+            }
+        }
+    }
 
     @Override
     public void onNewData(final byte[] data) {
         String tempData = new String(data, StandardCharsets.US_ASCII);
         jsonStr += tempData;
+
         if (jsonStr.indexOf('}') != -1) {
             dataFinal = jsonStr;
-            jsonStr = "";
+
+            jsonStr = jsonStr.substring(jsonStr.indexOf('}') + 1);
+
+            try {
+                JSONObject tempJsonObject = new JSONObject(dataFinal);
+                dataFinal = tempJsonObject.toString();
+            } catch (JSONException e) {
+                return;
+            }
+
             try {
                 jsonParse();
-                fileWrite();
+                if (writeToFile)
+                    fileWrite();
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
 
 
-        this.runOnUiThread(new Runnable() {
-            public void run() {
+            this.runOnUiThread(new Runnable() {
+                public void run() {
                 // This is the data received from the USB cable from arduino converted to a string
                 String receivedData = new String(data, StandardCharsets.US_ASCII);
                 //"{"BatteryTemp":50, "BatteryCharge": 100, }" <- this is an example of how the data
@@ -187,7 +226,12 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
 
     //method to parse through JSON input
     public void jsonParse() throws JSONException {
-        JSONObject json = new JSONObject(dataFinal);
+        JSONObject json;
+        try {
+            json = new JSONObject(dataFinal);
+        } catch(Exception e){
+            return;
+        }
         for(int i = 0;  i < json.names().length(); i++){
             String key = json.names().getString(i);
             Object value = json.get(json.names().getString(i));
@@ -213,9 +257,20 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
 
     public void fileWrite(){
         try {
-            OutputStreamWriter out = new OutputStreamWriter(openFileOutput("prove.txt", Context.MODE_APPEND));
+            if (out == null){
+                File proveTextFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),"prove.txt");
+                if (!proveTextFile.exists()) {
+                    proveTextFile.createNewFile();
+                }
+
+                FileOutputStream fos = new FileOutputStream(proveTextFile);
+                out = new OutputStreamWriter(fos);
+                Log.d(TAG, "File: " + proveTextFile.getAbsolutePath());
+            }
+            Log.d(TAG, "Finished writing to file: " );
             out.write(dataFinal);
             out.write('\n');
+            out.flush();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
