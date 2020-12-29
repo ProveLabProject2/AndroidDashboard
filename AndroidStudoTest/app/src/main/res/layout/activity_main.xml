@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#9C27B0"
-    android:backgroundTint="#172230">
+    android:backgroundTint="#172230"
+    android:weightSum="2">
 
     <TextView
         android:id="@+id/screenTitleHome"
@@ -20,22 +21,16 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="0dp"
-        android:paddingRight="0dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="100dp">
+        android:layout_weight="1"
+        android:weightSum="2">
 
         <LinearLayout
             android:id="@+id/alertsBoard"
-            android:layout_width="425dp"
-            android:layout_height="400dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:background="#253e5a">
+            android:background="#253e5a"
+            android:layout_margin="10dp">
 
             <TextView
                 android:id="@+id/boardTitleAlerts"
@@ -53,14 +48,11 @@
 
         <LinearLayout
             android:id="@+id/commsBoard"
-            android:layout_width="425dp"
-            android:layout_height="400dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:background="#253e5a">
+            android:background="#253e5a"
+            android:layout_margin="10dp">
 
             <TextView
                 android:id="@+id/boardTitleComms"
@@ -80,19 +72,16 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="0dp"
-        android:paddingRight="0dp">
+        android:layout_weight="1"
+        android:weightSum="2">
 
 
         <LinearLayout
             android:id="@+id/drivingBoard"
-            android:layout_width="425dp"
-            android:layout_height="400dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
             android:background="#253e5a">
 
             <TextView
@@ -111,13 +100,10 @@
 
         <LinearLayout
             android:id="@+id/batteryBoard"
-            android:layout_width="425dp"
-            android:layout_height="400dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:orientation="vertical"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
             android:background="#253e5a">
 
             <TextView
