@@ -34,7 +34,9 @@ import com.hoho.android.usbserial.util.SerialInputOutputManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
     public String jsonStr = "";
     public String dataFinal = "";
     public JsonObject infoGson;
+    public OutputStreamWriter out;
 
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
 
@@ -138,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
             jsonStr = "";
             try {
                 jsonParse();
+                fileWrite();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -174,30 +178,55 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
                 Toast.makeText(mainActivity,"Disconnected",Toast.LENGTH_LONG).show();
             }
         });
-        disconnect();
+        try {
+            disconnect();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
     }
 
     //method to parse through JSON input
     public void jsonParse() throws JSONException {
-        JSONObject test = new JSONObject(dataFinal);
-        for(int i = 0;  i < test.names().length(); i++){
-            String key = test.names().getString(i);
-            Object value = test.get(test.names().getString(i));
-            if (key.equals("Battery")){
-                Log.d(TAG, "Battery Value: " + value);
+        JSONObject json = new JSONObject(dataFinal);
+        for(int i = 0;  i < json.names().length(); i++){
+            String key = json.names().getString(i);
+            Object value = json.get(json.names().getString(i));
+            if (key.equals("Vehicle Temperature")){
+                Log.d(TAG, "Vehicle Temperature: " + value);
                 //assign value to a TextView on the UI thread
             }
-            if (key.equals("Temperature")){
-                Log.d(TAG,"Temperature Value: " + value);
+            if (key.equals("Alert Code")){
+                Log.d(TAG,"Alert Code: " + value);
+            }
+            if (key.equals("Battery Temperature")) {
+                Log.d(TAG, "Battery Temperature: " + value);
+            }
+            if (key.equals("Battery Capacity")) {
+                    Log.d(TAG, "Battery Capacity: " + value);
+            }
+            if (key.equals("Current Range")) {
+                Log.d(TAG, "Current Range: " + value);
             }
             //Continue adding until all required values are assigned to a TextView
         }
     }
 
+    public void fileWrite(){
+        try {
+            OutputStreamWriter out = new OutputStreamWriter(openFileOutput("prove.txt", Context.MODE_APPEND));
+            out.write(dataFinal);
+            out.write('\n');
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
-    //creates disconnect method to end connection
-    private void disconnect(){
+    //creates disconnect method to end connection and close data file
+    private void disconnect() throws IOException {
         Log.d(TAG, "disconnect_called");
         final Activity mainActivity = this;
         connected = false;
@@ -213,5 +242,6 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
             Log.d(TAG, "port_closed");
         } catch (IOException ignored) {}
         port = null;
+        out.close();
     }
 }
