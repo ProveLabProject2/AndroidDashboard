@@ -140,11 +140,24 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
 
         // Open a connection to the first available driver.
         driver = availableDrivers.get(0);
-        Log.d(TAG, "test");
         manager.requestPermission(driver.getDevice(), permissionIntent);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 0);
+        //If button is clicked, write 'X' to the Arduino
+        //Whatever X means will be interpreted by the arduino and the appropriate action will happned
+        //i.e. turn signals, headlights, etc.
+        final Button button = findViewById(R.id.commsBoard);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    port.write("button was clicked here".getBytes(), 100)
+                }
+                catch{
+                    onRunError(Exception e);
+                }
 
+            }
+        }
     }
 
     @Override
