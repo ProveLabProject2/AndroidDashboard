@@ -21,6 +21,7 @@ import android.os.Environment;
 import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -144,20 +145,18 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 0);
         //If button is clicked, write 'X' to the Arduino
-        //Whatever X means will be interpreted by the arduino and the appropriate action will happned
+        //Whatever X means will be interpreted by the arduino and the appropriate action will happen
         //i.e. turn signals, headlights, etc.
         final Button button = findViewById(R.id.commsBoard);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
-                    port.write("button was clicked here".getBytes(), 100)
+                    port.write("button was clicked here".getBytes(), 100);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                catch{
-                    onRunError(Exception e);
-                }
-
             }
-        }
+        });
     }
 
     @Override
@@ -166,7 +165,8 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
         if (requestCode == 0) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 writeToFile = true;
-            } else {
+            }
+            else {
                 // User refused to grant permission.
             }
         }
@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
                 Log.d(TAG, "Battery Temperature: " + value);
             }
             if (key.equals("Battery Capacity")) {
-                    Log.d(TAG, "Battery Capacity: " + value);
+                Log.d(TAG, "Battery Capacity: " + value);
             }
             if (key.equals("Current Range")) {
                 Log.d(TAG, "Current Range: " + value);
