@@ -39,6 +39,7 @@
                 android:layout_height="match_parent"
                 android:background="#253e5a"
                 android:textColor="#FFFFFF"
+                android:id="@+id/buttonLS"
                 android:text="Left Signal">
 
             </Button>
@@ -59,6 +60,7 @@
                 android:layout_height="match_parent"
                 android:background="#253e5a"
                 android:textColor="#FFFFFF"
+                android:id="@+id/buttonHL"
                 android:text="Headlights">
 
             </Button>
@@ -79,6 +81,7 @@
                 android:layout_height="match_parent"
                 android:background="#253e5a"
                 android:textColor="#FFFFFF"
+                android:id="@+id/buttonRS"
                 android:text="Right Signal">
 
             </Button>
@@ -175,6 +178,7 @@
                     android:layout_height="50dp"
                     android:textSize="30sp"
                     android:textColor="#FFFFFF"
+                    android:id="@+id/brakeData"
                     android:text = "Brakes: "/>
 
             </TableRow>
@@ -189,6 +193,7 @@
                     android:layout_height="50dp"
                     android:textSize="30sp"
                     android:textColor="#FFFFFF"
+                    android:id="@+id/accData"
                     android:text = "Accelerator: "/>
 
             </TableRow>
@@ -203,6 +208,7 @@
                     android:layout_height="50dp"
                     android:textSize="30sp"
                     android:textColor="#FFFFFF"
+                    android:id="@+id/mcData"
                     android:text = "MC: "/>
 
             </TableRow>
@@ -240,6 +246,7 @@
                     android:layout_height="50dp"
                     android:textSize="30dp"
                     android:textColor="#FFFFFF"
+                    android:id="@+id/bmsData"
                     android:text = "BMS: ">
 
                 </TextView>
