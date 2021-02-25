@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
 
     UsbManager manager;
 
-    private final BroadcastReceiver usbReceiver = new BroadcastReceiver() {
+    public final BroadcastReceiver usbReceiver = new BroadcastReceiver() {
 
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
@@ -147,13 +147,17 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
         //If button is clicked, write 'X' to the Arduino
         //Whatever X means will be interpreted by the arduino and the appropriate action will happen
         //i.e. turn signals, headlights, etc.
+        //UsbSerialPort port = driver.getPorts().get(0);
         final Button button = findViewById(R.id.commsBoard);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                UsbSerialPort port = driver.getPorts().get(0);
                 try {
                     port.write("button was clicked here".getBytes(), 100);
+                    Log.d(TAG, "Data was sent");
                 } catch (IOException e) {
                     e.printStackTrace();
+                    Log.d(TAG, "failed to send");
                 }
             }
         });
@@ -175,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
     @Override
     public void onNewData(final byte[] data) {
         String tempData = new String(data, StandardCharsets.US_ASCII);
+        Log.d(TAG, tempData);
         jsonStr += tempData;
 
         if (jsonStr.indexOf('}') != -1) {
@@ -191,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
 
             try {
                 jsonParse();
+                Log.d(TAG, dataFinal);
                 if (writeToFile)
                     fileWrite();
 
