@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+//add button insert here
         manager = (UsbManager) getSystemService(Context.USB_SERVICE);
 
         PendingIntent permissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
@@ -148,8 +148,8 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
         //Whatever X means will be interpreted by the arduino and the appropriate action will happen
         //i.e. turn signals, headlights, etc.
         //UsbSerialPort port = driver.getPorts().get(0);
-        final Button button = findViewById(R.id.commsBoard);
-        button.setOnClickListener(new View.OnClickListener() {
+        final Button writeButton = findViewById(R.id.commsBoard);
+        writeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 UsbSerialPort port = driver.getPorts().get(0);
                 try {
