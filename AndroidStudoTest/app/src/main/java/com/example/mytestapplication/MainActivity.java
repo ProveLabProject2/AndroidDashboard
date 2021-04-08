@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
     private boolean writeToFile = false;
     public String jsonStr = "";
     public String dataFinal = "";
-    public JsonObject infoGson;
     public OutputStreamWriter out = null;
 
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
@@ -148,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
         //Whatever X means will be interpreted by the arduino and the appropriate action will happen
         //i.e. turn signals, headlights, etc.
         //UsbSerialPort port = driver.getPorts().get(0);
-        final Button writeButton = findViewById(R.id.commsBoard);
+        final Button writeButton = findViewById(R.id.buttonLS);
         writeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 UsbSerialPort port = driver.getPorts().get(0);
@@ -254,21 +253,29 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
         for(int i = 0;  i < json.names().length(); i++){
             String key = json.names().getString(i);
             Object value = json.get(json.names().getString(i));
-            if (key.equals("Vehicle Temperature")){
-                Log.d(TAG, "Vehicle Temperature: " + value);
+            if (key.equals("Brakes")){
+                Log.d(TAG, "Brakes: " + value);
+                TextView brakesText = (TextView) findViewById(R.id.brakeData);
+                brakesText.setText("Brakes: " + value);
                 //assign value to a TextView on the UI thread
             }
             if (key.equals("Alert Code")){
                 Log.d(TAG,"Alert Code: " + value);
             }
-            if (key.equals("Battery Temperature")) {
-                Log.d(TAG, "Battery Temperature: " + value);
+            if (key.equals("Accelerator")) {
+                Log.d(TAG, "Accelerator: " + value);
+                TextView accText = (TextView) findViewById(R.id.accData);
+                accText.setText("Accelerator: " + value);
             }
-            if (key.equals("Battery Capacity")) {
-                Log.d(TAG, "Battery Capacity: " + value);
+            if (key.equals("BMS")) {
+                Log.d(TAG, "BMS: " + value);
+                TextView bmsText = (TextView) findViewById(R.id.bmsData);
+                bmsText.setText("BMS: " + value);
             }
-            if (key.equals("Current Range")) {
-                Log.d(TAG, "Current Range: " + value);
+            if (key.equals("MC")) {
+                Log.d(TAG, "MC: " + value);
+                TextView mcText = (TextView) findViewById(R.id.mcData);
+                mcText.setText("MC: " + value);
             }
             //Continue adding until all required values are assigned to a TextView
         }
