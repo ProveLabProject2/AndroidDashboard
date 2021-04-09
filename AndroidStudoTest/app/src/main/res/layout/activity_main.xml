@@ -1,98 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-
-    <Button
-        android:id="@+id/commsBoard"
-        android:layout_width="350dp"
-        android:layout_height="285dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="24dp"
-        android:text="Comms Board"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.081"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.253" />
-
-    <Button
-        android:id="@+id/drivingBoard"
-        android:layout_width="350dp"
-        android:layout_height="285dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="24dp"
-        android:text="Driving Board"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.912"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.253" />
-
-    <Button
-        android:id="@+id/bms"
-        android:layout_width="350dp"
-        android:layout_height="285dp"
-        android:text="Battery Board"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.684" />
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#9C27B0"
+    android:backgroundTint="#172230"
+    android:weightSum="2">
 
     <TextView
-        android:id="@+id/homeTextView"
-        android:layout_width="110dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="24dp"
+        android:id="@+id/screenTitleHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="Home"
-        android:textAllCaps="true"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.088" />
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="75sp"
+        android:textStyle="normal"
+        android:typeface="sans"
+        android:verticalScrollbarPosition="defaultPosition" />
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="350dp"
-        android:layout_height="561dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="24dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.123"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.904">
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".25"
+        android:weightSum="1">
 
         <LinearLayout
+            android:id="@+id/button1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </androidx.core.widget.NestedScrollView>
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight=".26"
+            android:background="#253e5a"
+            android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#253e5a"
+                android:textColor="#FFFFFF"
+                android:id="@+id/buttonLS"
+                android:text="Left Signal">
+
+            </Button>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight=".3"
+            android:background="#253e5a"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#253e5a"
+                android:textColor="#FFFFFF"
+                android:id="@+id/buttonHL"
+                android:text="Headlights">
+
+            </Button>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight=".44"
+            android:background="#253e5a"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#253e5a"
+                android:textColor="#FFFFFF"
+                android:id="@+id/buttonRS"
+                android:text="Right Signal">
+
+            </Button>
+
+        </LinearLayout>
+
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".75"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:id="@+id/alertsBoard"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="#253e5a"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/boardTitleAlerts"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#1f2d42"
+                android:text="Alerts Board"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="30dp"
+                android:textStyle="normal"
+                android:typeface="sans" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/commsBoard"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="#253e5a"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/boardTitleComms"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#1f2d42"
+                android:text="Comms Board"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="30dp"
+                android:textStyle="normal"
+                android:typeface="sans" />
+
+        </LinearLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".75"
+        android:weightSum="2">
+
+
+        <LinearLayout
+            android:id="@+id/drivingBoard"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="#253e5a"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/boardTitleDriving"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#1f2d42"
+                android:text="Driving Board"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="30dp"
+                android:textStyle="normal"
+                android:typeface="sans" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textSize="30sp"
+                    android:textColor="#FFFFFF"
+                    android:id="@+id/brakeData"
+                    android:text = "Brakes: "/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textSize="30sp"
+                    android:textColor="#FFFFFF"
+                    android:id="@+id/accData"
+                    android:text = "Accelerator: "/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textSize="30sp"
+                    android:textColor="#FFFFFF"
+                    android:id="@+id/mcData"
+                    android:text = "MC: "/>
+
+            </TableRow>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/batteryBoard"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="#253e5a"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/boardTitleBattery"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#1f2d42"
+                android:text="Battery Board"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="30dp"
+                android:textStyle="normal"
+                android:typeface="sans" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textSize="30dp"
+                    android:textColor="#FFFFFF"
+                    android:id="@+id/bmsData"
+                    android:text = "BMS: ">
+
+                </TextView>
+
+
+            </TableRow>
+
+
+        </LinearLayout>
+    </TableRow>
+
+
+</TableLayout>
