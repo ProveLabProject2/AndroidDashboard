@@ -44,6 +44,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileAlreadyExistsException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -60,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
     public String jsonStr = "";
     public String dataFinal = "";
     public OutputStreamWriter out = null;
+    public boolean leftSig = false;
+    public boolean rightSig = false;
+    public boolean headBool = false;
 
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
 
@@ -143,20 +147,78 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
         manager.requestPermission(driver.getDevice(), permissionIntent);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 0);
-        //If button is clicked, write 'X' to the Arduino
-        //Whatever X means will be interpreted by the arduino and the appropriate action will happen
-        //i.e. turn signals, headlights, etc.
-        //UsbSerialPort port = driver.getPorts().get(0);
-        final Button writeButton = findViewById(R.id.buttonLS);
-        writeButton.setOnClickListener(new View.OnClickListener() {
+        //left signal
+        final Button leftSignal = findViewById(R.id.buttonLS);
+        leftSignal.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 UsbSerialPort port = driver.getPorts().get(0);
-                try {
-                    port.write("button was clicked here".getBytes(), 100);
-                    Log.d(TAG, "Data was sent");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.d(TAG, "failed to send");
+                if (!leftSig) {
+                    try {
+                        port.write("L".getBytes(), 100);
+                        Log.d(TAG, "LS on");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.d(TAG, "LS failed to on");
+                    }
+                }
+                else{
+                    try {
+                        port.write("l".getBytes(), 100);
+                        Log.d(TAG, "LS off");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.d(TAG, "LS failed to off");
+                    }
+                }
+            }
+        });
+        //right signal
+        final Button rightSignal = findViewById(R.id.buttonRS);
+        rightSignal.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                UsbSerialPort port = driver.getPorts().get(0);
+                if (!rightSig) {
+                    try {
+                        port.write("R".getBytes(), 100);
+                        Log.d(TAG, "RS on");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.d(TAG, "RS failed to on");
+                    }
+                }
+                else{
+                    try {
+                        port.write("r".getBytes(), 100);
+                        Log.d(TAG, "RS off");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.d(TAG, "RS failed to off");
+                    }
+                }
+            }
+        });
+        //headlights
+        final Button headSignal = findViewById(R.id.buttonHL);
+        headSignal.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                UsbSerialPort port = driver.getPorts().get(0);
+                if (!headBool) {
+                    try {
+                        port.write("H".getBytes(), 100);
+                        Log.d(TAG, "HL on");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.d(TAG, "HL failed to on");
+                    }
+                }
+                else{
+                    try {
+                        port.write("h".getBytes(), 100);
+                        Log.d(TAG, "HL off");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.d(TAG, "HL failed to off");
+                    }
                 }
             }
         });
