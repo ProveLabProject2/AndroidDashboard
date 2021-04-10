@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
                 if (!leftSig) {
                     try {
                         port.write("L".getBytes(), 100);
+                        leftSig = true;
                         Log.d(TAG, "LS on");
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -164,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
                 else{
                     try {
                         port.write("l".getBytes(), 100);
+                        leftSig = false;
                         Log.d(TAG, "LS off");
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -180,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
                 if (!rightSig) {
                     try {
                         port.write("R".getBytes(), 100);
+                        rightSig = true;
                         Log.d(TAG, "RS on");
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -189,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
                 else{
                     try {
                         port.write("r".getBytes(), 100);
+                        rightSig = false;
                         Log.d(TAG, "RS off");
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -205,6 +209,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
                 if (!headBool) {
                     try {
                         port.write("H".getBytes(), 100);
+                        headBool = true;
                         Log.d(TAG, "HL on");
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -214,6 +219,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
                 else{
                     try {
                         port.write("h".getBytes(), 100);
+                        headBool = false;
                         Log.d(TAG, "HL off");
                     } catch (IOException e) {
                         e.printStackTrace();
