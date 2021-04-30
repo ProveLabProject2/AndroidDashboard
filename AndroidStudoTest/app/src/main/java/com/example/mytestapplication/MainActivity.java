@@ -3,6 +3,7 @@ package com.example.mytestapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
 import android.app.Activity;
@@ -52,6 +53,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executors;
 
+import static com.example.mytestapplication.R.id.homeButton;
+
 public class MainActivity extends AppCompatActivity implements SerialInputOutputManager.Listener {
     public boolean connected = false;
     private static final String TAG = "MainActivity";
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
     public boolean leftSig = false;
     public boolean rightSig = false;
     public boolean headBool = false;
+
 
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
 
@@ -120,7 +124,17 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//add button insert here
+        //add button insert here
+        //Camera Buttons Stuff
+        Button cameraButton = findViewById(R.id.cameraButton);
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), CameraActivity.class);
+                startActivityForResult(myIntent, 0);
+            }
+        });
+
+
         manager = (UsbManager) getSystemService(Context.USB_SERVICE);
 
         PendingIntent permissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
