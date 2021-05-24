@@ -7,8 +7,6 @@
     android:backgroundTint="#172230"
     android:weightSum="2"
     android:orientation="horizontal">
-
-
     <Button
         android:id="@+id/cameraButton"
         android:layout_width="wrap_content"

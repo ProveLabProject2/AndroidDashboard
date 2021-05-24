@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -20,9 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43199636-d6a8-46c0-b854-40a3bb5d9f4e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/AndroidDashboard.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,8 +43,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/AndroidStudoTest" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/AndroidStudoTest/app" />
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -67,15 +69,17 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="95" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1612408807534">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="95" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1612408807534" />
-    <state x="385" y="102" key="FileChooserDialogImpl" timestamp="1612646932240">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="-1342" y="161" key="FileChooserDialogImpl" timestamp="1620357847881">
+      <screen x="-1920" y="5" width="1920" height="1040" />
     </state>
     <state x="385" y="102" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1612646932240" />
+    <state x="-1342" y="161" key="FileChooserDialogImpl/0.0.1920.1040/-1920.5.1920.1040@-1920.5.1920.1040" timestamp="1620357847881" />
   </component>
 </project>

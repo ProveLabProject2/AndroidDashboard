@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //add button insert here
@@ -151,20 +152,23 @@ public class MainActivity extends AppCompatActivity implements SerialInputOutput
             availableDrivers = prober.findAllDrivers(manager);
 
             if (availableDrivers.isEmpty()) {
-                return;
+                //TODO: uncomment when using arduino
+                //return;
             }
         }
 
 
         // Open a connection to the first available driver.
-        driver = availableDrivers.get(0);
-        manager.requestPermission(driver.getDevice(), permissionIntent);
+        //TODO: uncomment when using arduino
+        //driver = availableDrivers.get(0);
+        //manager.requestPermission(driver.getDevice(), permissionIntent);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 0);
         //left signal
         final Button leftSignal = findViewById(R.id.buttonLS);
         leftSignal.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Log.d(TAG,"LS clicked");
                 UsbSerialPort port = driver.getPorts().get(0);
                 if (!leftSig) {
                     try {

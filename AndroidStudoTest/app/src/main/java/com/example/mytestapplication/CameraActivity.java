@@ -1,5 +1,6 @@
 package com.example.mytestapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.usb.UsbDevice;
 import android.os.Bundle;
@@ -14,24 +15,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.jiangdg.usbcamera.UVCCameraHelper;
 import com.jiangdg.usbcamera.utils.FileUtils;
 import com.serenegiant.usb.CameraDialog;
+import com.serenegiant.usb.DeviceFilter;
 import com.serenegiant.usb.USBMonitor;
 import com.serenegiant.usb.common.AbstractUVCCameraHandler;
 import com.serenegiant.usb.widget.CameraViewInterface;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class CameraActivity extends AppCompatActivity implements CameraDialog.CameraDialogParent, CameraViewInterface.Callback {
-    private boolean isRequest;
+    private boolean isRequest = false;
     private boolean isPreview;
-    private static final String TAG = "Debug";
+    private static final String TAG = "CameraActivity";
 
     @BindView(R.id.camera_view)
     public View mTextureView;
 
     private UVCCameraHelper mCameraHelper;
     private CameraViewInterface mUVCCameraView;
+    private Context c = this;
     private UVCCameraHelper.OnMyDevConnectListener listener = new UVCCameraHelper.OnMyDevConnectListener() {
 
         @Override
@@ -41,6 +46,8 @@ public class CameraActivity extends AppCompatActivity implements CameraDialog.Ca
                 isRequest = true;
                 if (mCameraHelper != null) {
                     mCameraHelper.requestPermission(0);
+                    List<DeviceFilter> deviceFilters = DeviceFilter
+                            .getDeviceFilters(c, R.xml.device_filter);
                 }
             }
         }
@@ -100,6 +107,9 @@ public class CameraActivity extends AppCompatActivity implements CameraDialog.Ca
         mCameraHelper.setDefaultFrameFormat(UVCCameraHelper.FRAME_FORMAT_MJPEG);
         mCameraHelper.initUSBMonitor(this, mUVCCameraView, listener);
 
+        //final List<DeviceFilter> filters = DeviceFilter.getDeviceFilters(this, R.xml.device_filter);
+        //mUSBMonitor.setDeviceFilter(filters);
+
         mCameraHelper.setOnPreviewFrameListener(new AbstractUVCCameraHandler.OnPreViewResultListener() {
             @Override
             public void onPreviewResult(byte[] nv21Yuv) {
@@ -129,6 +139,7 @@ public class CameraActivity extends AppCompatActivity implements CameraDialog.Ca
 
     @Override
     protected void onStart() {
+        Log.d(TAG, "onStart");
         super.onStart();
         // step.2 register USB event broadcast
         if (mCameraHelper != null) {
@@ -172,6 +183,7 @@ public class CameraActivity extends AppCompatActivity implements CameraDialog.Ca
     }
     @Override
     public USBMonitor getUSBMonitor() {
+        Log.d(TAG, "getusbmonitor");
         return mCameraHelper.getUSBMonitor();
     }
 
